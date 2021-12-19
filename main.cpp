@@ -12,9 +12,9 @@
 bool is_permutation_palindrome_original(const std::string& text)
 {
     const std::size_t buffer_size = 8 * 1024;
-    std::array<std::byte, buffer_size> scratch{};
+    std::array<std::byte, buffer_size> scratch;
     std::pmr::monotonic_buffer_resource resource(scratch.data(), buffer_size);
-    std::pmr::unordered_map<char, size_t> counter_map(&resource);
+    std::pmr::unordered_map<char, size_t> counter_map;
 //    counter_map.reserve(256);
 
     for (const auto ch : text)
