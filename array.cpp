@@ -11,7 +11,7 @@
 // based on https://codereview.stackexchange.com/a/272130
 // from https://codereview.stackexchange.com/users/42409/deduplicator
 bool is_permutation_palindrome_array(std::string_view s) noexcept {
-    unsigned char counts[1u + (unsigned char)-1] {};
+    unsigned char counts[1u + std::numeric_limits<unsigned char>::max()] {};
     for (unsigned char c : s)
         ++counts[c];
     return std::count_if(std::begin(counts), std::end(counts), [](auto a){ return a % 2; }) < 2;
@@ -22,7 +22,7 @@ bool is_permutation_palindrome_array(std::string_view s) noexcept {
 int main(int argc, char* argv[]) {
     if (argc != 4) {
         std::cerr << "usage: " << argv[0] << " <input-size> <target-run-count> "
-                                             "<generation_type:'random'|'spread'|homogenous>\n";
+                                             "<generation_type:'random'|'spread'|'homogenous'>\n";
         return EXIT_FAILURE;
     }
 

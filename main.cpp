@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <bitset>
 #include <memory_resource>
+#include <chrono>
+namespace chrono = std::chrono;
 
 #include "input_gen.h"
 
@@ -37,7 +39,7 @@ bool is_permutation_palindrome_original(const std::string& text)
 // based on https://codereview.stackexchange.com/a/272130
 // from https://codereview.stackexchange.com/users/42409/deduplicator
 bool is_permutation_palindrome_array(std::string_view s) noexcept {
-    unsigned char counts[1u + (unsigned char)-1] {};
+    unsigned char counts[1u + std::numeric_limits<unsigned char>::max()] {};
     for (unsigned char c : s)
         ++counts[c];
     return std::count_if(std::begin(counts), std::end(counts), [](auto a){ return a % 2; }) < 2;
@@ -55,8 +57,6 @@ bool is_permutation_palindrome_bitset(const std::string& text)
     return odd_characters.count() <= 1;
 }
 
-#include <chrono>
-namespace chrono = std::chrono;
 
 struct sample_t {
     chrono::nanoseconds original_time;
